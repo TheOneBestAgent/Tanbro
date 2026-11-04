@@ -37,6 +37,41 @@ Extra checks done in place of the device tests (details in verification.txt):
   (not on a phone), using each constructor form. `super(port)` answered on the non-loopback IP.
   `super("127.0.0.1", port)` refused it and still served on loopback.
 
+## Testing it yourself (Phases 2 + 4)
+
+The `.jar` **is** the APK: it's the `app-debug.apk` build output, renamed the way upstream CI renames it.
+It has no activities or services. It runs through `app_process`, the same way uiautomator2 runs it.
+**Don't `adb install` it.** Its package name is `com.github.uiautomator`, the same as the keyboard app.
+
+Requirements:
+- A Mac or Linux computer (Windows: use WSL or Git Bash) with `adb`, `curl` and `python3`.
+- The phone plugged in by USB, with USB debugging authorized.
+- **The computer on the same Wi-Fi as the phone.** It acts as the "second device" that tries to reach the
+  phone over the network.
+
+```bash
+git clone -b claude/uiautomator2-loopback-bind-jc1twz https://github.com/TheOneBestAgent/Tanbro.git
+cd Tanbro/deliver && ./test-u2-loopback.sh
+```
+
+The script checks both jar hashes, downloading the upstream 0.4.1 jar for the baseline. It then runs:
+1. The baseline: the bug must reproduce.
+2. The patched jar: log line, loopback-only listener, unreachable over Wi-Fi, tunnel `pong`.
+3. The real uiautomator2 3.7.1 client in a throwaway venv, with the patched asset and the keyboard APK
+   deleted. It must read the screen, and the server it launches must also be loopback only.
+
+It cleans up the phone afterwards and writes `claude-cloud-u2-0.4.1-loopback.device-verification.txt`.
+Exit code 0 means every check passed.
+
+Options:
+- `PHONE_IP=…`: set this if the phone's Wi-Fi IP isn't detected.
+- `ANDROID_SERIAL=…`: set this if more than one device is attached.
+- `SKIP_PYTHON=1`: skips the client test.
+
+If the baseline isn't reachable over Wi-Fi (client isolation, or the computer on Ethernet or another
+network), the network checks report FAIL as inconclusive. Use a network that allows device-to-device
+traffic.
+
 **Phase 4 still has to pass on a real device before Hermes installs this.** Run it on any host with a
 USB-debuggable phone and a second device on the same Wi-Fi, using the commands in the plan, and use this
 jar as-is. Its hash must match the one above.
