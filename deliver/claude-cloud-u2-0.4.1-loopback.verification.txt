@@ -1,0 +1,119 @@
+u2.jar 0.4.1 loopback-bind fix: verification record
+Build host: Claude Code cloud container (Linux x86_64, no Android device attached), 2026-11-04T21:26:21Z
+JDK: openjdk version "17.0.20.1" 2026-08-18  (plan says zulu 17; OpenJDK 17 used)
+SDK: platforms;android-34, build-tools;34.0.0 (Gradle wrapper 7.3.3, AGP 7.2.2)
+
+================ PHASE 1: SOURCE + BASELINE ARTIFACT ================
+$ git -C src rev-parse HEAD
+1ebbe916835be9be298e619ffb859ddf157d09d1
+SOURCE_OK
+$ sha256sum u2-0.4.1-upstream.jar
+87c8ac9505970d42aa5922baa90114808fda6f47f9e5fbd4caa0f621c2c8d30d  u2-0.4.1-upstream.jar
+expected 87c8ac9505970d42aa5922baa90114808fda6f47f9e5fbd4caa0f621c2c8d30d -> MATCH
+
+================ BASELINE (upstream) -- PHASE 2 ================
+NOT RUN: no Android phone and no second Wi-Fi device are available to this build host.
+Pending: run Phase 2 commands from the plan on a host with a USB phone + second device.
+
+Static baseline (upstream jar), AutomatorHttpServer.<init>(I)V body:
+005674: 7020 2803 2100                         |0000: invoke-direct {v1, v2}, Lfi/iki/elonen/NanoHTTPD;.<init>:(I)V // method@0328
+00567a: 2200 a300                              |0003: new-instance v0, Ljava/util/HashMap; // type@00a3
+00567e: 7010 7b03 0000                         |0005: invoke-direct {v0}, Ljava/util/HashMap;.<init>:()V // method@037b
+005684: 5b10 1900                              |0008: iput-object v0, v1, Lcom/wetest/uia2/stub/AutomatorHttpServer;.router:Ljava/util/Map; // field@0019
+005688: 0e00                                   |000a: return-void
+  -> NanoHTTPD(int): hostname=null -> binds all interfaces.
+001036: 1a03 8c00                              |0041: const-string v3, "http server listening on *:" // string@008c
+
+================ PHASE 3: PATCH + BUILD ================
+$ git diff (hunks: 2)
+diff --git a/app/src/main/java/com/wetest/uia2/Main.java b/app/src/main/java/com/wetest/uia2/Main.java
+index 18effef..e88ffe0 100644
+--- a/app/src/main/java/com/wetest/uia2/Main.java
++++ b/app/src/main/java/com/wetest/uia2/Main.java
+@@ -115,7 +115,7 @@ public class Main {
+         server.route("/jsonrpc/0", jrs);
+         server.start();
+ 
+-        Ln.i("http server listening on *:" + port);
++        Ln.i("http server listening on 127.0.0.1:" + port);
+         while (server.isAlive()) {
+             Thread.sleep(500);
+         }
+diff --git a/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java b/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java
+index ea27701..87a56a5 100644
+--- a/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java
++++ b/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java
+@@ -45,7 +45,7 @@ public class AutomatorHttpServer extends NanoHTTPD {
+     public static final int DEFAULT_PORT = 9008;
+ 
+     public AutomatorHttpServer(int port) {
+-        super(port);
++        super("127.0.0.1", port); // loopback only; clients reach it via adb tunnel
+     }
+ 
+     private Map<String, JsonRpcServer> router = new HashMap<String, JsonRpcServer>();
+$ ./gradlew --no-daemon assembleDebug
+BUILD SUCCESSFUL in 1m 17s
+(the first attempt failed with HTTP 429 from repo.maven.apache.org during dependency resolution, i.e. rate limiting, not a code error; the retry succeeded. build-log.txt is the successful run.)
+$ cat SHA256SUMS
+9eb6a26c9393caf4face0898d80a520dd65e24afc2441ec2aca96e6e9627a446  u2-0.4.1-loopback.jar
+91d8169a62bb4d7fcdfe6a12eb4abf47  u2-0.4.1-loopback.jar
+
+Static check (plan command):
+005684: 1a00 0d00                              |0000: const-string v0, "127.0.0.1" // string@000d
+Patched AutomatorHttpServer.<init>(I)V body:
+005684: 1a00 0d00                              |0000: const-string v0, "127.0.0.1" // string@000d
+005688: 7030 2803 0102                         |0002: invoke-direct {v1, v0, v2}, Lfi/iki/elonen/NanoHTTPD;.<init>:(Ljava/lang/String;I)V // method@0328
+00568e: 2200 a300                              |0005: new-instance v0, Ljava/util/HashMap; // type@00a3
+005692: 7010 7b03 0000                         |0007: invoke-direct {v0}, Ljava/util/HashMap;.<init>:()V // method@037b
+005698: 5b10 1900                              |000a: iput-object v0, v1, Lcom/wetest/uia2/stub/AutomatorHttpServer;.router:Ljava/util/Map; // field@0019
+00569c: 0e00                                   |000c: return-void
+001036: 1a03 8c00                              |0041: const-string v3, "http server listening on 127.0.0.1:" // string@008c
+
+---- Extra: reproducibility + full-diff audit ----
+Rebuilt the UNPATCHED 0.4.1 source with the same toolchain. All non-META-INF entries are byte-identical to the official upstream u2.jar:
+  differing entries: 0
+Upstream vs patched, per-entry sha256 (non-META-INF):
+1c1
+< AndroidManifest.xml fb2eb387cb394d7f
+---
+> AndroidManifest.xml c3c199e6ff3e4f05
+7,9c7,9
+< classes5.dex b3dcf7e7268118ff
+< classes6.dex e23d5ecbb205a573
+< classes7.dex f2890d24d3e72c06
+---
+> classes5.dex 385b7d810eb6eb7b
+> classes6.dex 91da3d035b6c8725
+> classes7.dex 618986e8c81e27a4
+Explanation of each changed entry:
+  AndroidManifest.xml + classes5.dex (BuildConfig): versionName '0.4.1' -> '0.4.1-dirty' (androidGitVersion plugin, from the uncommitted patch). versionCode unchanged (4002).
+  classes6.dex (Main), instruction diff with dex indices normalized:
+    302c302
+    < const-string v3, "http server listening on *:" 
+    ---
+    > const-string v3, "http server listening on 127.0.0.1:" 
+  classes7.dex (AutomatorHttpServer, Stub), instruction diff with dex indices normalized:
+    614c614,615
+    < invoke-direct {v1, v2}, Lfi/iki/elonen/NanoHTTPD;.<init>:(I)V 
+    ---
+    > const-string v0, "127.0.0.1" 
+    > invoke-direct {v1, v0, v2}, Lfi/iki/elonen/NanoHTTPD;.<init>:(Ljava/lang/String;I)V 
+  (other classes7 byte changes are string-pool index renumbering from the added "127.0.0.1" string.)
+No other ServerSocket/bind in app sources: $ grep -rnE 'ServerSocket|NanoHTTPD\(|\.bind\(' app/src/main/java -> 0 matches
+
+---- Extra: host-JVM bind-semantics check (substitute evidence, NOT a device test) ----
+Same library (org.nanohttpd:nanohttpd:2.3.1 from the build's Gradle cache), same two constructor forms, port 19008,
+probed from the same host via loopback and via its non-loopback interface IP:
+== super(port)  [upstream form]
+via 127.0.0.1: pong
+via 192.0.2.2: pong exit=0
+== super("127.0.0.1", port)  [patched form]
+via 127.0.0.1: pong
+via 192.0.2.2:  exit=7
+  -> patched form: interface IP refused (curl exit 7), loopback still serves.
+
+================ PATCHED -- PHASE 4 ================
+NOT RUN: no Android phone and no second Wi-Fi device are available to this build host.
+Still required before Hermes installs this (plan section 4, Phase 4, all bullets):
+  log line 127.0.0.1:9008 | ss loopback only | second device cannot reach :9008 | tunneled /ping = pong | uiautomator2 3.7.1 client info + node count > 0

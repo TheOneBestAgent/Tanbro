@@ -1,0 +1,26 @@
+diff --git a/app/src/main/java/com/wetest/uia2/Main.java b/app/src/main/java/com/wetest/uia2/Main.java
+index 18effef..e88ffe0 100644
+--- a/app/src/main/java/com/wetest/uia2/Main.java
++++ b/app/src/main/java/com/wetest/uia2/Main.java
+@@ -115,7 +115,7 @@ public class Main {
+         server.route("/jsonrpc/0", jrs);
+         server.start();
+ 
+-        Ln.i("http server listening on *:" + port);
++        Ln.i("http server listening on 127.0.0.1:" + port);
+         while (server.isAlive()) {
+             Thread.sleep(500);
+         }
+diff --git a/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java b/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java
+index ea27701..87a56a5 100644
+--- a/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java
++++ b/app/src/main/java/com/wetest/uia2/stub/AutomatorHttpServer.java
+@@ -45,7 +45,7 @@ public class AutomatorHttpServer extends NanoHTTPD {
+     public static final int DEFAULT_PORT = 9008;
+ 
+     public AutomatorHttpServer(int port) {
+-        super(port);
++        super("127.0.0.1", port); // loopback only; clients reach it via adb tunnel
+     }
+ 
+     private Map<String, JsonRpcServer> router = new HashMap<String, JsonRpcServer>();

@@ -1,0 +1,187 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=44115 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Checking the license for package Android SDK Build-Tools 30.0.3 in /root/android-sdk/licenses
+License for package Android SDK Build-Tools 30.0.3 accepted.
+Preparing "Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)".
+"Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)" ready.
+Installing Android SDK Build-Tools 30.0.3 in /root/android-sdk/build-tools/30.0.3
+"Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)" complete.
+"Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)" finished.
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :permission:preBuild UP-TO-DATE
+> Task :permission:preDebugBuild UP-TO-DATE
+> Task :permission:compileDebugAidl NO-SOURCE
+> Task :uiautomator2:preBuild UP-TO-DATE
+> Task :uiautomator2:preDebugBuild UP-TO-DATE
+> Task :uicore:preBuild UP-TO-DATE
+> Task :uicore:preDebugBuild UP-TO-DATE
+> Task :permission:packageDebugRenderscript NO-SOURCE
+> Task :uiautomator2:packageDebugRenderscript NO-SOURCE
+> Task :uicore:packageDebugRenderscript NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig
+> Task :app:javaPreCompileDebug
+> Task :permission:writeDebugAarMetadata
+> Task :uiautomator2:writeDebugAarMetadata
+> Task :uicore:writeDebugAarMetadata
+> Task :app:generateDebugResValues
+> Task :app:generateDebugResources
+> Task :permission:compileDebugRenderscript NO-SOURCE
+> Task :uicore:compileDebugAidl
+> Task :permission:generateDebugResValues
+> Task :permission:generateDebugResources
+> Task :app:checkDebugAarMetadata
+> Task :permission:packageDebugResources
+> Task :uiautomator2:compileDebugRenderscript NO-SOURCE
+> Task :uiautomator2:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :uiautomator2:generateDebugResValues
+> Task :uiautomator2:generateDebugResources
+> Task :uiautomator2:packageDebugResources
+> Task :uicore:compileDebugRenderscript NO-SOURCE
+> Task :uicore:generateDebugResValues
+> Task :uicore:generateDebugResources
+> Task :uicore:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :permission:extractDeepLinksDebug
+> Task :uiautomator2:extractDeepLinksDebug
+> Task :uicore:extractDeepLinksDebug
+> Task :app:mergeDebugResources
+> Task :uiautomator2:processDebugManifest
+> Task :permission:processDebugManifest
+> Task :uicore:processDebugManifest
+> Task :app:mapDebugSourceSetPaths
+> Task :permission:compileDebugLibraryResources
+> Task :permission:parseDebugLocalResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :uiautomator2:compileDebugLibraryResources
+> Task :app:processDebugManifestForPackage
+> Task :permission:generateDebugRFile
+> Task :uiautomator2:parseDebugLocalResources
+> Task :uicore:parseDebugLocalResources
+> Task :uicore:compileDebugLibraryResources
+> Task :permission:generateDebugBuildConfig
+> Task :permission:javaPreCompileDebug
+> Task :uiautomator2:generateDebugBuildConfig
+> Task :uicore:generateDebugRFile
+
+> Task :permission:compileDebugJavaWithJavac
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :uiautomator2:javaPreCompileDebug
+> Task :permission:bundleLibCompileToJarDebug
+> Task :uicore:generateDebugBuildConfig
+> Task :uiautomator2:generateDebugRFile
+> Task :uicore:javaPreCompileDebug
+> Task :app:mergeDebugShaders
+
+> Task :uicore:compileDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :uicore:bundleLibCompileToJarDebug
+> Task :app:processDebugResources
+
+> Task :uiautomator2:compileDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :permission:mergeDebugShaders
+> Task :permission:compileDebugShaders NO-SOURCE
+> Task :permission:generateDebugAssets UP-TO-DATE
+> Task :uiautomator2:bundleLibCompileToJarDebug
+> Task :permission:packageDebugAssets
+> Task :uiautomator2:mergeDebugShaders
+> Task :uiautomator2:compileDebugShaders NO-SOURCE
+> Task :uiautomator2:generateDebugAssets UP-TO-DATE
+> Task :uiautomator2:packageDebugAssets
+
+> Task :app:compileDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :uicore:mergeDebugShaders
+> Task :uicore:compileDebugShaders NO-SOURCE
+> Task :uicore:generateDebugAssets UP-TO-DATE
+> Task :uicore:packageDebugAssets
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :permission:processDebugJavaRes NO-SOURCE
+> Task :permission:bundleLibResDebug NO-SOURCE
+> Task :uiautomator2:processDebugJavaRes NO-SOURCE
+> Task :uiautomator2:bundleLibResDebug NO-SOURCE
+> Task :uicore:processDebugJavaRes NO-SOURCE
+> Task :uicore:bundleLibResDebug NO-SOURCE
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeDebugJavaResource
+> Task :app:desugarDebugFileDependencies
+> Task :uicore:bundleLibRuntimeToJarDebug
+> Task :permission:bundleLibRuntimeToJarDebug
+> Task :uiautomator2:bundleLibRuntimeToJarDebug
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :permission:mergeDebugJniLibFolders
+> Task :permission:mergeDebugNativeLibs NO-SOURCE
+> Task :permission:copyDebugJniLibsProjectOnly
+> Task :app:mergeLibDexDebug
+> Task :uiautomator2:mergeDebugJniLibFolders
+> Task :uiautomator2:mergeDebugNativeLibs NO-SOURCE
+> Task :uiautomator2:copyDebugJniLibsProjectOnly
+> Task :uicore:mergeDebugJniLibFolders
+> Task :uicore:mergeDebugNativeLibs NO-SOURCE
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :uicore:copyDebugJniLibsProjectOnly
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeProjectDexDebug
+> Task :permission:stripDebugDebugSymbols NO-SOURCE
+> Task :permission:copyDebugJniLibsProjectAndLocalJars
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:mergeExtDexDebug
+> Task :permission:extractDebugAnnotations
+> Task :permission:mergeDebugGeneratedProguardFiles
+> Task :permission:mergeDebugConsumerProguardFiles
+> Task :permission:prepareDebugArtProfile
+> Task :permission:prepareLintJarForPublish
+> Task :uiautomator2:stripDebugDebugSymbols NO-SOURCE
+> Task :permission:mergeDebugJavaResource
+> Task :uiautomator2:copyDebugJniLibsProjectAndLocalJars
+> Task :permission:syncDebugLibJars
+> Task :permission:bundleDebugAar
+> Task :permission:assembleDebug
+> Task :uiautomator2:extractDebugAnnotations
+> Task :uiautomator2:mergeDebugGeneratedProguardFiles
+> Task :uiautomator2:mergeDebugConsumerProguardFiles
+> Task :uiautomator2:prepareDebugArtProfile
+> Task :uiautomator2:prepareLintJarForPublish
+> Task :uiautomator2:mergeDebugJavaResource
+> Task :uicore:stripDebugDebugSymbols NO-SOURCE
+> Task :uiautomator2:syncDebugLibJars
+> Task :uiautomator2:bundleDebugAar
+> Task :uiautomator2:assembleDebug
+> Task :uicore:copyDebugJniLibsProjectAndLocalJars
+> Task :uicore:extractDebugAnnotations
+> Task :uicore:mergeDebugGeneratedProguardFiles
+> Task :uicore:mergeDebugConsumerProguardFiles
+> Task :uicore:prepareDebugArtProfile
+> Task :uicore:prepareLintJarForPublish
+> Task :uicore:mergeDebugJavaResource
+> Task :uicore:syncDebugLibJars
+> Task :uicore:bundleDebugAar
+> Task :uicore:assembleDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+BUILD SUCCESSFUL in 1m 17s
+108 actionable tasks: 108 executed
